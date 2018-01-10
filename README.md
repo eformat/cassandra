@@ -36,6 +36,7 @@ Run the following as cluster-admin
 Create the Service and StatefulSet
 
 ```oc create -f cassandra-service.yaml```
+
 ```oc create -f cassandra-statefulset.yaml```
 
 
