@@ -38,7 +38,8 @@ spec:
            cpu: "500m"
            memory: 1Gi
         # OpenShift v3.7
-        # Had to exec oc adm policy add-scc-to-user privileged -z default -n $(oc project -q)
+        # Had to exec the following as cluster-admin to allow for this securityContext
+        # oc adm policy add-scc-to-user privileged -z default -n $(oc project -q)
         securityContext:
           capabilities:
             add:
@@ -52,9 +53,11 @@ spec:
             value: 512M
           - name: HEAP_NEWSIZE
             value: 100M
-          # Change default to reflect your OpenShift project (namespace)
+          # Change the following to reflect your OpenShift project (namespace)
+          # cassandra-0.cassandra.<project>.svc.cluster.local
+          # This should really be taken care of with a template variable.
           - name: CASSANDRA_SEEDS
-            value: "cassandra-0.cassandra.stateful-kube.svc.cluster.local"
+            value: "cassandra-0.cassandra.statefuldead.svc.cluster.local"
           - name: CASSANDRA_CLUSTER_NAME
             value: "K8Demo"
           - name: CASSANDRA_DC
