@@ -5,13 +5,14 @@ Deploying Clustered Cassandra on OpenShift
 ```oc new-project cassandra```
 
 As cluster admin, make the following policy change:
+
 ```oc adm policy add-scc-to-user anyuid -z default -n cassandra```
 
-oc new-app --name=db-01 docker.io/cassandra -e CASSANDRA_BROADCAST_ADDRESS=db-01.cassandra.svc.cluster.local
+```oc new-app --name=db-01 docker.io/cassandra -e CASSANDRA_BROADCAST_ADDRESS=db-01.cassandra.svc.cluster.local```
 
-oc new-app --name=db-02 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-02.cassandra.svc.cluster.local
+```oc new-app --name=db-02 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-02.cassandra.svc.cluster.local```
 
-oc new-app --name=db-03 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-03.cassandra.svc.cluster.local
+```oc new-app --name=db-03 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-03.cassandra.svc.cluster.local```
 
 Proceed to checking cluster status.
 
@@ -20,9 +21,7 @@ Proceed to checking cluster status.
 ### (3) existing 1Gi PVs are required.
 
 ### Create a project
-```
-oc new-project statefuldead
-```
+``` oc new-project statefuldead ```
 
 ### Run the following as cluster-admin
 
@@ -30,10 +29,8 @@ oc new-project statefuldead
 
 ### Create the Service and StatefulSet
 
-```
-oc create -f cassandra-service.yaml
-oc create -f cassandra-statefulset.yaml
-```
+```oc create -f cassandra-service.yaml```
+```oc create -f cassandra-statefulset.yaml```
 
 ### Wait for (3) pods to become ready 
 
