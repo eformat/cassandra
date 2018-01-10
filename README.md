@@ -16,7 +16,7 @@ Create (3) apps.
 
 ```oc new-app --name=db-03 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-03.cassandra.svc.cluster.local```
 
-Proceed to checking cluster status.
+Proceed to checking the cluster status.
 
 ## StatefulSets method (tech preview in v3.7)
 
@@ -37,7 +37,7 @@ Create the Service and StatefulSet
 
 Wait for (3) pods to become ready 
 
-Checking the cluster status.
+#### Checking the cluster status.
 
 ```oc get pods```
 
