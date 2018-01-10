@@ -35,9 +35,10 @@ Create the Service and StatefulSet
 ```oc create -f cassandra-service.yaml```
 ```oc create -f cassandra-statefulset.yaml```
 
-Wait for (3) pods to become ready 
 
 #### Checking the cluster status.
+
+Wait for (3) cassandra pods to become ready. 
 
 ```oc get pods```
 
