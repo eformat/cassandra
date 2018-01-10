@@ -53,7 +53,7 @@ cassandra-1   1/1       Running   0          59m
 cassandra-2   1/1       Running   0          58m
 ```
 ```oc rsh cassandra-0 nodetool status```
-
+```
 Datacenter: DC1-K8Demo
 ======================
 Status=Up/Down
