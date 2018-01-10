@@ -37,13 +37,13 @@ oc create -f cassandra-service.yaml
 oc create -f cassandra-statefulset.yaml
 ```
 
-### Wait for (3) pods to become ready i
+### Wait for (3) pods to become ready 
 
 ### Checking the cluster status.
 
-```
-oc get pods
+```oc get pods```
 
+```
 NAME          READY     STATUS    RESTARTS   AGE
 cassandra-0   1/1       Running   0          1h
 cassandra-1   1/1       Running   0          59m
