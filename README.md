@@ -20,7 +20,7 @@ Proceed to checking the cluster status.
 
 ## StatefulSets method (tech preview in v3.7)
 
-Based on an [example](https://kubernetes.io/docs/tutorials/stateful-application/cassandra/#using-a-statefulset-to-create-a-cassandra-ring)
+Based on an [example](https://kubernetes.io/docs/tutorials/stateful-application/cassandra/)
 from the Kubernetes tutorials.
 
 (3) existing 1Gi PVs are required.
