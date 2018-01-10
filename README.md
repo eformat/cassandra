@@ -51,8 +51,8 @@ NAME          READY     STATUS    RESTARTS   AGE
 cassandra-0   1/1       Running   0          1h
 cassandra-1   1/1       Running   0          59m
 cassandra-2   1/1       Running   0          58m
-
-oc rsh cassandra-0 nodetool status
+```
+```oc rsh cassandra-0 nodetool status```
 
 Datacenter: DC1-K8Demo
 ======================
