@@ -2,18 +2,17 @@
 Deploying Clustered Cassandra on OpenShift
 
 ## Manual method (OpenShift versions prior to v3.7)
-```
-oc new-project cassandra
+```oc new-project cassandra```
 
 As cluster admin, make the following policy change:
-oc adm policy add-scc-to-user anyuid -z default -n cassandra
+```oc adm policy add-scc-to-user anyuid -z default -n cassandra```
 
 oc new-app --name=db-01 docker.io/cassandra -e CASSANDRA_BROADCAST_ADDRESS=db-01.cassandra.svc.cluster.local
 
 oc new-app --name=db-02 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-02.cassandra.svc.cluster.local
 
 oc new-app --name=db-03 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-03.cassandra.svc.cluster.local
-```
+
 Proceed to checking cluster status.
 
 ## StatefulSets method (tech preview in v3.7)
@@ -26,9 +25,8 @@ oc new-project statefuldead
 ```
 
 ### Run the following as cluster-admin
-```
-oc adm policy add-scc-to-user privileged -z default -n $(oc project -q)
-```
+
+```oc adm policy add-scc-to-user privileged -z default -n $(oc project -q)```
 
 ### Create the Service and StatefulSet
 
