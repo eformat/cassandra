@@ -5,6 +5,7 @@ Deploying Clustered Cassandra on OpenShift
 ```oc new-project cassandra```
 
 As cluster admin, make the following policy change:
+
 ```oc adm policy add-scc-to-user anyuid -z default -n cassandra```
 
 Create (3) apps. Wait for each pod to become ready before creating the next app.
