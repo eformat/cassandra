@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: cassandra-cluster
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      app: cassandra
+    name: cassandra
+  spec:
+    clusterIP: None
+    ports:
+    - port: 9042
+      protocol: TCP
+      targetPort: 9042
+    selector:
+      app: cassandra
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1beta1
+  kind: StatefulSet
+  metadata:
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: cassandra
+    name: cassandra
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        app: cassandra
+    serviceName: cassandra
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: cassandra
+      spec:
+        containers:
+        - env:
+          - name: MAX_HEAP_SIZE
+            value: 512M
+          - name: HEAP_NEWSIZE
+            value: 100M
+          - name: CASSANDRA_SEEDS
+            value: cassandra-0.cassandra.statefuldead.svc.cluster.local
+          - name: CASSANDRA_CLUSTER_NAME
+            value: K8Demo
+          - name: CASSANDRA_DC
+            value: DC1-K8Demo
+          - name: CASSANDRA_RACK
+            value: Rack1-K8Demo
+          - name: CASSANDRA_AUTO_BOOTSTRAP
+            value: "false"
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          image: gcr.io/google-samples/cassandra:v12
+          imagePullPolicy: Always
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                - /bin/sh
+                - -c
+                - PID=$(pidof java) && kill $PID && while ps -p $PID > /dev/null;
+                  do sleep 1; done
+          name: cassandra
+          ports:
+          - containerPort: 7000
+            name: intra-node
+            protocol: TCP
+          - containerPort: 7001
+            name: tls-intra-node
+            protocol: TCP
+          - containerPort: 7199
+            name: jmx
+            protocol: TCP
+          - containerPort: 9042
+            name: cql
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /bin/bash
+              - -c
+              - /ready-probe.sh
+            failureThreshold: 3
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          securityContext:
+            capabilities:
+              add:
+              - IPC_LOCK
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /cassandra_data
+            name: cassandra-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    volumeClaimTemplates:
+    - metadata:
+        creationTimestamp: null
+        name: cassandra-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
