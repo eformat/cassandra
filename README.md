@@ -10,11 +10,11 @@ As cluster admin, make the following policy change:
 
 Create (3) apps.
 
-```oc new-app --name=db-01 docker.io/cassandra -e CASSANDRA_BROADCAST_ADDRESS=db-01.cassandra.svc.cluster.local```
+```oc new-app --name=cassandra-0 docker.io/cassandra -e CASSANDRA_BROADCAST_ADDRESS=cassandra-0.cassandra.svc.cluster.local```
 
-```oc new-app --name=db-02 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-02.cassandra.svc.cluster.local```
+```oc new-app --name=cassandra-1 docker.io/cassandra -e CASSANDRA_SEEDS=cassandra-0.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=cassandra-1.cassandra.svc.cluster.local```
 
-```oc new-app --name=db-03 docker.io/cassandra -e CASSANDRA_SEEDS=db-01.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=db-03.cassandra.svc.cluster.local```
+```oc new-app --name=cassandra-2 docker.io/cassandra -e CASSANDRA_SEEDS=cassandra-0.cassandra.svc.cluster.local CASSANDRA_BROADCAST_ADDRESS=cassandra-2.cassandra.svc.cluster.local```
 
 Proceed to checking the cluster status.
 
