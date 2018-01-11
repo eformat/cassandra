@@ -33,12 +33,9 @@ Run the following as cluster-admin
 
 ```oc adm policy add-scc-to-user privileged -z default -n $(oc project -q)```
 
-Create the Service and StatefulSet
+Create the Service and StatefulSet from a template.
 
-```oc create -f cassandra-service.yaml```
-
-```oc create -f cassandra-statefulset.yaml```
-
+```oc process -f https://raw.githubusercontent.com/bkoz/cassandra/master/cassandra-cluster.yaml | oc create -f -```
 
 #### Checking the cluster status.
 
