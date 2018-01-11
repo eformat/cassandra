@@ -36,7 +36,7 @@ Create the Service and StatefulSet from a template.
 
 ```oc process -f https://raw.githubusercontent.com/bkoz/cassandra/master/cassandra-cluster.yaml | oc create -f -```
 
-#### Checking the cluster status.
+#### Check the cluster status by running ```nodetool status``` from any pod that is ready.
 
 Wait for (3) cassandra pods to become ready. 
 
