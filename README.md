@@ -29,6 +29,7 @@ Create a project
 ``` oc new-project statefuldead ```
 
 As cluster admin, make the following policy change:
+
 ```oc adm policy add-scc-to-user anyuid -z default -n cassandra```
 
 Create the Service and StatefulSet from a template.
