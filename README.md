@@ -5,7 +5,6 @@ Deploying Clustered Cassandra on OpenShift
 ```oc new-project cassandra```
 
 As cluster admin, make the following policy change:
-
 ```oc adm policy add-scc-to-user anyuid -z default -n cassandra```
 
 Create (3) apps.
@@ -29,9 +28,8 @@ Create a project
 
 ``` oc new-project statefuldead ```
 
-Run the following as cluster-admin
-
-```oc adm policy add-scc-to-user privileged -z default -n $(oc project -q)```
+As cluster admin, make the following policy change:
+```oc adm policy add-scc-to-user anyuid -z default -n cassandra```
 
 Create the Service and StatefulSet from a template.
 
