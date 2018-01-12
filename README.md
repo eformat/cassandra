@@ -31,7 +31,7 @@ Create a project
 
 As cluster admin, make the following policy change:
 
-```oc adm policy add-scc-to-user anyuid -z default -n statefuldead```
+```oc adm policy add-scc-to-user privileged -z default -n statefuldead```
 
 Create the Service and StatefulSet from a template.
 
